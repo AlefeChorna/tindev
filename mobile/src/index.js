@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, StatusBar } from "react-native";
+import { View, StatusBar, YellowBox } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 
 import createNavigator from "./routes";
+
+YellowBox.ignoreWarnings([
+  "Unrecognized WebSocket"
+]);
 
 const App = () => {
   const [userLogged, setUserLogged] = useState(false);

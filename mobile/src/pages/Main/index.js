@@ -8,10 +8,12 @@ import {
   StatusBar 
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
+import io from "socket.io-client";
 
 import logo from "../../assets/logo.png";
 import like from "../../assets/like.png";
 import dislike from "../../assets/dislike.png";
+import itsamatch from "../../assets/itsamatch.png";
 import api from "../../services/api";
 
 import styles from "./styles";
@@ -19,6 +21,7 @@ import styles from "./styles";
 export default function Main({ navigation }) {
   const [id, setId] = useState("");
   const [users, setUsers] = useState([]);
+  const [matchDev, setMatchDev] = useState(null);
 
   useEffect(() => {
     async function getUser() {
@@ -44,6 +47,18 @@ export default function Main({ navigation }) {
     }
 
     loadUsers();
+  }, [id]);
+
+  useEffect(() => {
+    if (id) {
+      const socket = io("http://192.168.0.104:3333", {
+        query: { user: id }
+      });
+
+      socket.on("match", dev => {
+        setMatchDev(dev);
+      });
+    }
   }, [id]);
 
   async function handleLike() {
@@ -115,6 +130,20 @@ export default function Main({ navigation }) {
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={handleLike}>
               <Image source={like} />
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {matchDev && (
+          <View style={styles.matchContainer}>
+            <Image style={styles.matchImage} source={itsamatch} />
+            <Image style={styles.matchAvatar} source={{ uri: matchDev.avatar }} />
+
+            <Text style={styles.matchName}>{matchDev.name}</Text>
+            <Text style={styles.matchBio} numberOfLines={3}>{matchDev.bio}</Text>
+
+            <TouchableOpacity onPress={() => setMatchDev(null)}>
+              <Text style={styles.closeMatch}>FECHAR</Text>
             </TouchableOpacity>
           </View>
         )}
