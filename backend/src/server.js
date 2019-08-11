@@ -20,7 +20,7 @@ io.on('connection', socket => {
 });
 
 mongoose.connect(
-  'mongodb+srv://timdev:timdev@cluster0-pp5yf.mongodb.net/timdev?retryWrites=true&w=majority',
+  'mongodb+srv://your_username:your_password@cluster0-pp5yf.mongodb.net/timdev?retryWrites=true&w=majority',
   { useNewUrlParser: true }
 );
 

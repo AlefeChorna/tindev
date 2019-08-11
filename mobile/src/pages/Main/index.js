@@ -136,6 +136,7 @@ export default function Main({ navigation }) {
 
         {matchDev && (
           <View style={styles.matchContainer}>
+            <StatusBar backgroundColor="#00000000" />
             <Image style={styles.matchImage} source={itsamatch} />
             <Image style={styles.matchAvatar} source={{ uri: matchDev.avatar }} />
 
