@@ -53,10 +53,6 @@ export default function Main({ match }) {
     setUsers(users.filter(user => user._id !== _prId));
   }
 
-  function closeMatchDev(_prState) {
-    setMatchDev(_prState);
-  }
-
   return (
     <div className="main-container">
       <Link to="/">
@@ -107,7 +103,7 @@ export default function Main({ match }) {
             <img className="match-avatar" src={matchDev.avatar} alt="Developer" />
             <strong>{matchDev.name}</strong>
             <p>{matchDev.bio}</p>
-            <button type="button" onClick={() => closeMatchDev(null)}>FECHAR</button>
+            <button type="button" onClick={() => setMatchDev(null)}>FECHAR</button>
           </div>  
         )}
     </div>
